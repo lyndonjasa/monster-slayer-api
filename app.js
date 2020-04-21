@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import "./mongo/mongoose-setup";
+const express = require("express");
+const cors = require("cors");
+require("./mongo/mongoose-setup");
 
 var app = express();
 app.use(cors());

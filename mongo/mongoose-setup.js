@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { config } from "../shared/config";
+const mongoose = require("mongoose");
+const config = require("../shared/config");
 
 mongoose.connect(config.mongoConnection, {
   useNewUrlParser: true,
