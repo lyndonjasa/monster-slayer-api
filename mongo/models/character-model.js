@@ -16,6 +16,10 @@ const Character = mongoose.model("Character", {
   equipment: {
     weapon: mongoose.Schema.Types.ObjectId,
     armor: mongoose.Schema.Types.ObjectId
+  },
+  accountId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Account"
   }
 });
 
