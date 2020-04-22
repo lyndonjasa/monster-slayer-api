@@ -6,7 +6,8 @@ const Skill = mongoose.model("Skill", {
   damage: Number,
   cost: Number,
   type: String,
-  target: String
+  target: String,
+  lvlReq: Number
 });
 
 module.exports = Skill;

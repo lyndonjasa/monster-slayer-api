@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Character = mongoose.model("Character", {
   classType: Number,
   name: String,
+  totalExp: Number,
   stats: {
     health: Number,
     mana: Number,
@@ -12,10 +13,19 @@ const Character = mongoose.model("Character", {
     int: Number,
     luk: Number
   },
-  skills: [mongoose.Schema.Types.ObjectId],
+  skills: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Skill"
+  }],
   equipment: {
-    weapon: mongoose.Schema.Types.ObjectId,
-    armor: mongoose.Schema.Types.ObjectId
+    weapon: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item"
+    },
+    armor:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item"
+    }
   },
   accountId: {
     type: mongoose.Schema.Types.ObjectId,

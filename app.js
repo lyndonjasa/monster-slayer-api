@@ -11,11 +11,11 @@ routes.forEach(route => {
   app.use(route);
 });
 
-const port = process.env.PORT || 3000;
-
 app.get("/", (req, res) => {
   res.send("Hello Monster Slayer API");
 });
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log("server listening to port: " + port);

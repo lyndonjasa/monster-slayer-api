@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Skill = require("../mongo/models/skills-model");
+const { Skill } = require("../mongo/models");
 
 router.get("/skills", async (req, res) => {
   try {
