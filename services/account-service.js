@@ -73,7 +73,7 @@ const login = async(request) => {
       throw { code: 404, error: "no account found associated with the credentials" }
     }
   } catch (error) {
-    throw { code: 500, error };
+    throw error;
   }
 }
 

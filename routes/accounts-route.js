@@ -25,8 +25,8 @@ router.post("/accounts/login", async (req, res) => {
     const account = await AccountService.login(request);
 
     res.send(account);
-  } catch ({code, error}) {
-    res.status(code).send(error);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
