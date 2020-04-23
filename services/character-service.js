@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const getAccountCharacter = async (accountId) => {
   try {
-    const character = await Character.find({ accountId: accountId })
+    const character = await Character.findOne({ accountId: accountId })
       .populate("skills")
       .populate("equipment.weapon")
       .populate("equipment.armor")
