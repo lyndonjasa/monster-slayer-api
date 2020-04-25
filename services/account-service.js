@@ -38,10 +38,12 @@ const createAccount = async(request) => {
 
     // get character base equipment
     // map _id only
-    const items = await Item.find({ classId: request.getClassType });
+    const weapon = await Item.findOne({ classId: request.getClassType, type: "WPN" });
+    const armor = await Item.findOne({ classId: request.getClassType, type: "AMR" });
+
     character.equipment = {
-      weapon: items.find(x => x.type === "WPN")._id,
-      armor: items.find(x => x.type === "AMR")._id
+      weapon: weapon._id,
+      armor: armor._id
     };
 
     new Character(character).save();
