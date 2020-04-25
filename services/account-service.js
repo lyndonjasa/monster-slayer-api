@@ -18,7 +18,6 @@ const createAccount = async(request) => {
   session.startTransaction();
 
   try {
-
     await account.save();
 
     const character = {
@@ -66,7 +65,6 @@ const createAccount = async(request) => {
  */
 const login = async(request) => {
   try {
-    debugger
     const account = await Account.findOne({ username: request.getUsername, password: request.getPassword });
 
     if (account) {
