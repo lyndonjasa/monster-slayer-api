@@ -4,6 +4,8 @@ const Character = mongoose.model("Character", {
   classType: Number,
   name: String,
   totalExp: Number,
+  nextLevelExp: Number,
+  level: Number,
   stats: {
     health: Number,
     mana: Number,

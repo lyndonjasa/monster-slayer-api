@@ -25,7 +25,9 @@ const createAccount = async(request) => {
       classType: request.getClassType,
       name: request.getCharacterName,
       accountId: account._id,
-      totalExp: 0
+      nextLevelExp: 20,
+      totalExp: 0,
+      level: 1
     };
 
     // get character base stats
