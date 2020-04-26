@@ -4,15 +4,21 @@ const Character = mongoose.model("Character", {
   classType: Number,
   name: String,
   totalExp: Number,
+  nextLevelExp: Number,
+  level: Number,
   stats: {
     health: Number,
     mana: Number,
     off: Number,
     def: Number,
-    spd: Number,
+    agi: Number,
     int: Number,
     luk: Number
   },
+  dungeonAccess: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Dungeon"
+  }],
   skills: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Skill"
