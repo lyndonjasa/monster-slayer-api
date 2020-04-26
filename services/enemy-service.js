@@ -4,7 +4,7 @@ const { Enemy, EnemySkill, Item } = require("../mongo/models");
 const getEnemies = async() => {
   try {
     const enemies = await Enemy.find({}).populate("skills").populate("drops", "name").exec();
-    const count = await Enemy.find({}).count();
+    const count = await Enemy.find({}).countDocuments();
 
     return { count, enemies };
   } catch (error) {

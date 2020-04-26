@@ -4,5 +4,6 @@ const Item = require("./items-model");
 const Skill = require("./skills-model");
 const EnemySkill = require("./enemy-skills-model");
 const Enemy = require("./enemy-model");
+const Dungeon = require("./dungeon-model");
 
-module.exports = { Account, Character, Item, Skill, Enemy, EnemySkill };
+module.exports = { Account, Character, Item, Skill, Enemy, EnemySkill, Dungeon };
