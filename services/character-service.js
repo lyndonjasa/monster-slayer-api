@@ -7,6 +7,7 @@ const getAccountCharacter = async (accountId) => {
       .populate("skills")
       .populate("equipment.weapon")
       .populate("equipment.armor")
+      .populate("dungeonAccess", "name")
       .exec();
 
     return character;

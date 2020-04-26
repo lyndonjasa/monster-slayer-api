@@ -15,6 +15,10 @@ const Character = mongoose.model("Character", {
     int: Number,
     luk: Number
   },
+  dungeonAccess: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Dungeon"
+  }],
   skills: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Skill"

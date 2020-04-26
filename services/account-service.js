@@ -1,5 +1,5 @@
 const { AccountRequest, LoginRequest } = require("../requests/");
-const { Account, Character, Item, Skill } = require("../mongo/models");
+const { Account, Character, Item, Skill, Dungeon } = require("../mongo/models");
 const { baseStats } = require("../shared/class-stats");
 
 /**
@@ -47,6 +47,9 @@ const createAccount = async(request) => {
       weapon: weapon._id,
       armor: armor._id
     };
+
+    const firstDungeon = await Dungeon.findOne({ name: "Grass Lands" });
+    character.dungeonAccess = [firstDungeon._id];
 
     new Character(character).save();
 
