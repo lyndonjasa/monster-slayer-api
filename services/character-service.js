@@ -1,12 +1,11 @@
 const { Character } = require("../mongo/models");
-const mongoose = require("mongoose");
 
 const getAccountCharacter = async (accountId) => {
   try {
     const character = await Character.findOne({ accountId: accountId })
-      .populate("skills")
-      .populate("equipment.weapon")
-      .populate("equipment.armor")
+      .populate("skills", "name classId damage target cost type")
+      .populate("equipment.weapon", "name bonus classId type")
+      .populate("equipment.armor", "name bonus classId type")
       .populate("dungeonAccess", "name")
       .exec();
 
