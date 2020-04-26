@@ -11,7 +11,7 @@ const Character = mongoose.model("Character", {
     mana: Number,
     off: Number,
     def: Number,
-    spd: Number,
+    agi: Number,
     int: Number,
     luk: Number
   },
