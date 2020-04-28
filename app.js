@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("./mongo/mongoose-setup");
 
+const config = require("./shared/config");
+
 var app = express();
 app.use(cors());
 app.use(express.json());
@@ -12,7 +14,7 @@ routes.forEach(route => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello Monster Slayer API");
+  res.send("Hello Monster Slayer API " + config.environment);
 });
 
 const port = process.env.PORT || 3000;
