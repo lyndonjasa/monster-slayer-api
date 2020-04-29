@@ -5,10 +5,10 @@ const Inventory = mongoose.model("Inventory", {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Character"
   },
-  items: [{
+  item: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Item"
-  }]
+  }
 });
 
 module.exports = Inventory;

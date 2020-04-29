@@ -52,12 +52,18 @@ const createAccount = async(request) => {
 
     const charModel = await new Character(character).save();
 
-    const inventory = {
-      characterId: charModel._id,
-      items: [weapon._id, armor._id]
-    };
+    const inventory = [
+      {
+        characterId: charModel._id,
+        item: weapon._id
+      },
+      {
+        characterId: charModel._id,
+        item: armor._id
+      }
+    ];
 
-    await new Inventory(inventory).save();
+    await Inventory.insertMany(inventory);
 
     await session.commitTransaction();
     session.endSession();

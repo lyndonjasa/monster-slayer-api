@@ -32,8 +32,8 @@ const getCharacter = async(characterId) => {
 
 const getInventory = async(characterId) => {
   try {
-    const inventory = await Inventory.findOne({ characterId: characterId })
-      .populate("items", "name bonus classId type")
+    const inventory = await Inventory.find({ characterId: characterId })
+      .populate("item", "name bonus classId type")
       .exec();
     
     return inventory;
