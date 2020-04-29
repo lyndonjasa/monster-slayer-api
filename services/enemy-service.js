@@ -25,6 +25,7 @@ const uploadEnemies = async(requests) => {
     for (let index = 0; index < requests.length; index++) {
       const request = requests[index];
       
+      const isBoss = request.boss === 1 ? true : false;
       const enemy = request;
       const drops = request.drops.map(d => d);
       const enemySkills = request.skills.map(s => s);
@@ -37,6 +38,8 @@ const uploadEnemies = async(requests) => {
   
       const skills = await EnemySkill.find({ name: { $in: enemySkills } });
       enemy.skills = skills.map(s => s._id);
+
+      enemy.boss = isBoss;
 
       const enemyModel = new Enemy(enemy);
 

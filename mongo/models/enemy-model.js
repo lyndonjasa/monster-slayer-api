@@ -22,7 +22,8 @@ const Enemy = mongoose.model("Enemy", {
   drops: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Item"
-  }]
+  }],
+  boss: Boolean
 });
 
 module.exports = Enemy;
