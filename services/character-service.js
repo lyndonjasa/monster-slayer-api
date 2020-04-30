@@ -117,7 +117,8 @@ const getDungeonAccess = async(characterId) => {
                             path: "drops",
                             select: "name classId type"
                           }
-                        });
+                        })
+                        .populate("bossReq", "name");
 
   debugger
   const access = character.dungeonAccess.map(x => x._id) || [];
