@@ -25,7 +25,7 @@ const uploadEnemies = async(requests) => {
     for (let index = 0; index < requests.length; index++) {
       const request = requests[index];
       
-      const isBoss = request.boss === 1 ? true : false;
+      const isBoss = request.boss == 1 ? true : false;
       const enemy = request;
       const drops = request.drops.map(d => d);
       const enemySkills = request.skills.map(s => s);

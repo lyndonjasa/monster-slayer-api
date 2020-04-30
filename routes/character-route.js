@@ -73,4 +73,15 @@ router.put("/character/:id/skills", async(req, res) => {
   }
 });
 
+router.get("/character/:id/dungeons", async(req, res) => {
+  try {
+    const id = req.params.id;
+    const dungeons = await CharacterService.getDungeonAccess(id);
+
+    res.send(dungeons);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

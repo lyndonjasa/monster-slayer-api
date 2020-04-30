@@ -1,4 +1,4 @@
-const { Character, Inventory, Skill } = require("../mongo/models");
+const { Character, Inventory, Skill, Dungeon } = require("../mongo/models");
 const { EquipmentRequest } = require("../requests");
 const mongoose = require("mongoose");
 
@@ -103,11 +103,41 @@ const updateSkills = async(characterId, skills) => {
   await character.save();
 }
 
+/**
+ * 
+ * @param {String} characterId 
+ */
+const getDungeonAccess = async(characterId) => {
+  const character = await Character.findById(characterId);
+  const allDungeons = await Dungeon.find({})
+                        .populate({ 
+                          path: "enemies",
+                          select: "name boss",
+                          populate: {
+                            path: "drops",
+                            select: "name"
+                          }
+                        });
+
+  debugger
+  const access = character.dungeonAccess.map(x => x._id) || [];
+  const dungeons = allDungeons.map(x => x.toJSON());
+  dungeons.filter(x => access.includes(x._id)).forEach(d => {
+    d.locked = false;
+  });
+  dungeons.filter(x => !access.includes(x._id)).forEach(d => {
+    d.locked = true;
+  });
+
+  return dungeons;
+}
+
 module.exports = { 
   getAccountCharacter,
   getCharacter,
   getInventory, 
   updateEquipment,
   getCharacterSkills,
-  updateSkills
+  updateSkills,
+  getDungeonAccess
 };
