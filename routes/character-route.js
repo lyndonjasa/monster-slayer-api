@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { CharacterService } = require("../services");
+const { EquipmentRequest } = require("../requests");
 
 router.get("/character/:id", async(req, res) => {
   try {
@@ -22,6 +23,24 @@ router.get("/character/:id/inventory", async(req, res) => {
     res.send(inventory);
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+router.put("/character/:id/equipment", async(req, res) => {
+  try {
+    const request = new EquipmentRequest(req.body);
+    const id = req.params.id;
+
+    await CharacterService.updateEquipment(id, request);
+
+    res.status(200).send();
+  } catch (error) {
+    const { code } = error;
+    if (code) {
+      res.status(code).send(error.error);
+    } else {
+      res.status(500).send(error);
+    }
   }
 });
 

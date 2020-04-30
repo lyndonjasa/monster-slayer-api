@@ -1,4 +1,6 @@
 const { Character, Inventory } = require("../mongo/models");
+const { EquipmentRequest } = require("../requests");
+const mongoose = require("mongoose");
 
 const getAccountCharacter = async (accountId) => {
   try {
@@ -15,6 +17,10 @@ const getAccountCharacter = async (accountId) => {
   }
 }
 
+/**
+ * 
+ * @param {String} characterId 
+ */
 const getCharacter = async(characterId) => {
   try {
     const character = await Character.findById(characterId)
@@ -30,6 +36,10 @@ const getCharacter = async(characterId) => {
   }
 }
 
+/**
+ * 
+ * @param {String} characterId 
+ */
 const getInventory = async(characterId) => {
   try {
     const inventory = await Inventory.find({ characterId: characterId })
@@ -42,4 +52,21 @@ const getInventory = async(characterId) => {
   }
 }
 
-module.exports = { getAccountCharacter, getCharacter, getInventory };
+/**
+ * 
+ * @param {String} characterId 
+ * @param {EquipmentRequest} request 
+ */
+const updateEquipment = async(characterId, request) => {
+  const character = await Character.findById(characterId);
+  
+  if (!character) throw { code: 404, error: "No character found" };
+
+  const { equipment } = character;
+  equipment.weapon = mongoose.Types.ObjectId(request.weaponId);
+  equipment.armor = mongoose.Types.ObjectId(request.armorId);
+
+  await character.save();
+}
+
+module.exports = { getAccountCharacter, getCharacter, getInventory, updateEquipment };
