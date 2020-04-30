@@ -115,7 +115,7 @@ const getDungeonAccess = async(characterId) => {
                           select: "name boss",
                           populate: {
                             path: "drops",
-                            select: "name"
+                            select: "name classId type"
                           }
                         });
 
