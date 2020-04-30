@@ -1,4 +1,4 @@
-const { Character, Inventory } = require("../mongo/models");
+const { Character, Inventory, Skill } = require("../mongo/models");
 const { EquipmentRequest } = require("../requests");
 const mongoose = require("mongoose");
 
@@ -59,7 +59,7 @@ const getInventory = async(characterId) => {
  */
 const updateEquipment = async(characterId, request) => {
   const character = await Character.findById(characterId);
-  
+
   if (!character) throw { code: 404, error: "No character found" };
 
   const { equipment } = character;
@@ -69,4 +69,45 @@ const updateEquipment = async(characterId, request) => {
   await character.save();
 }
 
-module.exports = { getAccountCharacter, getCharacter, getInventory, updateEquipment };
+/**
+ * 
+ * @param {String} characterId 
+ */
+const getCharacterSkills = async(characterId) => {
+  const character = await Character.findById(characterId);
+  const { level, classType } = character;
+
+  const availableSkills = await Skill.find({ classId: classType, lvlReq: { $lte: level } });
+
+  return availableSkills;
+}
+
+/**
+ * 
+ * @param {String} characterId 
+ * @param {Array<String>} skills 
+ */
+const updateSkills = async(characterId, skills) => {
+  debugger
+  const character = await Character.findById(characterId);
+
+  if (!character) throw { code: 404, error: "No character found" };
+
+  const skillIds = [];
+  skills.forEach(skill => {
+    skillIds.push(mongoose.Types.ObjectId(skill));
+  })
+
+  character.skills = skillIds;
+
+  await character.save();
+}
+
+module.exports = { 
+  getAccountCharacter,
+  getCharacter,
+  getInventory, 
+  updateEquipment,
+  getCharacterSkills,
+  updateSkills
+};

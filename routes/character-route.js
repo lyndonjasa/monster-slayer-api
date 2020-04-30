@@ -44,4 +44,33 @@ router.put("/character/:id/equipment", async(req, res) => {
   }
 });
 
+router.get("/character/:id/skills", async(req, res) => {
+  try {
+    const id = req.params.id;
+    const skills = await CharacterService.getCharacterSkills(id);
+
+    res.send(skills);
+  } catch (error) {
+    res.status(500).send(error); 
+  }
+});
+
+router.put("/character/:id/skills", async(req, res) => {
+  try {
+    const id = req.params.id;
+    const skills = req.body;
+
+    await CharacterService.updateSkills(id, skills);
+
+    res.status(200).send();
+  } catch (error) {
+    const { code } = error;
+    if (code) {
+      res.status(code).send(error.error);
+    } else {
+      res.status(500).send(error);
+    }
+  }
+});
+
 module.exports = router;
