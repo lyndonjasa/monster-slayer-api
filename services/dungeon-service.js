@@ -1,5 +1,7 @@
-const { DungeonRequest } = require("../requests");
-const { Enemy, Dungeon } = require("../mongo/models");
+const { DungeonRequest, EnterDungeonRequest } = require("../requests");
+const { Enemy, Dungeon, Character } = require("../mongo/models");
+const { randomizeEncounter } = require("../shared/randomizer");
+const KeyValuePair = require("../shared/key-value-pair");
 
 /**
  * 
@@ -58,4 +60,30 @@ const getDungeons = async() => {
   }
 }
 
-module.exports = { uploadDungeons, getDungeons };
+/**
+ * 
+ * @param {EnterDungeonRequest} request 
+ */
+const enterDungeon = async(request) => {
+  const character = await Character.findById(request.characterId);
+  const dungeon = await Dungeon.findById(request.dungeonId).populate("enemies", "encRate");
+
+  // if no character/dungeon is found, throw 
+  if (!character) throw { code: 400, error: "No character found" }
+  if (!dungeon) throw { code: 400, error: "Invalid dungeon Id" }
+
+  // check if character has access to dungeon, throw if none
+  const access = character.dungeonAccess.find(x => x == request.dungeonId);
+  if (!access) throw { code: 400, error: "Character has no access to this dungeon" }
+
+  // map enemies to id/rate pair
+  const enemies = dungeon.enemies.map(e => new KeyValuePair(e._id.toString(), e.encRate));
+  const enemyId = randomizeEncounter(enemies);
+
+  const enemy = await Enemy.findById(enemyId).select("name level image")
+                          .populate("skills");
+
+  return enemy;
+}
+
+module.exports = { uploadDungeons, getDungeons, enterDungeon };
