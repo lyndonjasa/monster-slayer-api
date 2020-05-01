@@ -80,10 +80,13 @@ const enterDungeon = async(request) => {
   const enemies = dungeon.enemies.map(e => new KeyValuePair(e._id.toString(), e.encRate));
   const enemyId = randomizeEncounter(enemies);
 
-  const enemy = await Enemy.findById(enemyId).select("name level image")
+  const enemy = await Enemy.findById(enemyId).select("name level image stats")
                           .populate("skills");
 
-  return enemy;
+  return {
+    dungeon: { _id: dungeon._id, image: dungeon.image },
+    enemy
+  };
 }
 
 module.exports = { uploadDungeons, getDungeons, enterDungeon };
