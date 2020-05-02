@@ -46,8 +46,8 @@ const baseStats = [
     health: 100,
     mana: 300,
     classId: 5, // Caster
-    off: 10,
-    def: 20,
+    off: 20,
+    def: 10,
     agi: 40,
     int: 60,
     luk: .375
@@ -96,8 +96,8 @@ const increment = [
     health: 20,
     mana: 60,
     classId: 5, // Caster
-    off: 2,
-    def: 4,
+    off: 4,
+    def: 2,
     agi: 8,
     int: 12
   },
