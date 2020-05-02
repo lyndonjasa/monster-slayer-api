@@ -72,7 +72,7 @@ const increment = [
     off: 6,
     def: 4,
     agi: 6,
-    int: 5
+    int: 6
   },
   {
     health: 20,
