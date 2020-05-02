@@ -4,6 +4,7 @@ const EnemyRequest = require("../requests/enemy-request");
 const DungeonRequest = require("../requests/dungeon-request");
 const EquipmentRequest = require("../requests/equipment-request");
 const EnterDungeonRequest = require("../requests/enter-dungeon-request");
+const BattleRequest = require("../requests/battle-request");
 
 module.exports = { 
     AccountRequest,
@@ -11,5 +12,6 @@ module.exports = {
     EnemyRequest,
     DungeonRequest,
     EquipmentRequest,
-    EnterDungeonRequest
+    EnterDungeonRequest,
+    BattleRequest
 };

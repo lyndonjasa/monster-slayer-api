@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { DungeonRequest, EnterDungeonRequest } = require("../requests");
+const { DungeonRequest, EnterDungeonRequest, BattleRequest } = require("../requests");
 const { DungeonService } = require("../services");
 
 // get list of dungeons
@@ -37,6 +37,23 @@ router.post("/dungeons/enter", async(req, res) => {
     const enemy = await DungeonService.enterDungeon(request);
 
     res.send(enemy);
+  } catch (error) {
+    const { code } = error;
+    if (code) {
+      res.status(code).send(error.error);
+    } else {
+      res.status(500).send(error);
+    }
+  }
+});
+
+// battle outcome
+router.post("/dungeons/battle", async(req, res) => {
+  try {
+    const request = new BattleRequest(req.body);
+    const outcome = await DungeonService.battleOutcome(request);
+    
+    res.send(outcome);
   } catch (error) {
     const { code } = error;
     if (code) {

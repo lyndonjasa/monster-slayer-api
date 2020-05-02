@@ -72,8 +72,7 @@ const increment = [
     off: 6,
     def: 4,
     agi: 6,
-    int: 5,
-    luk: 0.625
+    int: 5
   },
   {
     health: 20,
@@ -82,8 +81,7 @@ const increment = [
     off: 6,
     def: 4,
     agi: 10,
-    int: 4,
-    luk: .50
+    int: 4
   },
   {
     health: 60,
@@ -92,8 +90,7 @@ const increment = [
     off: 10,
     def: 12,
     agi: 4,
-    int: 4,
-    luk: .125
+    int: 4
   },
   {
     health: 20,
@@ -102,8 +99,7 @@ const increment = [
     off: 2,
     def: 4,
     agi: 8,
-    int: 12,
-    luk: .375
+    int: 12
   },
 ]
 

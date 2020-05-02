@@ -12,7 +12,8 @@ const Item = mongoose.model("Item", {
     spd: Number,
     int: Number,
     luk: Number
-  }
+  },
+  dropRate: Number
 });
 
 module.exports = Item;
