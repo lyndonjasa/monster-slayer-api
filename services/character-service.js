@@ -88,7 +88,6 @@ const getCharacterSkills = async(characterId) => {
  * @param {Array<String>} skills 
  */
 const updateSkills = async(characterId, skills) => {
-  debugger
   const character = await Character.findById(characterId);
 
   if (!character) throw { code: 404, error: "No character found" };
@@ -120,7 +119,6 @@ const getDungeonAccess = async(characterId) => {
                         })
                         .populate("bossReq", "name");
 
-  debugger
   const access = character.dungeonAccess.map(x => x._id) || [];
   const dungeons = allDungeons.map(x => x.toJSON());
   dungeons.filter(x => access.includes(x._id)).forEach(d => {

@@ -112,8 +112,8 @@ const battleOutcome = async(request) => {
   if (!dungeon) throw { code: 400, error: "Invalid dungeon Id" }
 
   // check if character has access to dungeon, throw if none
-  // const access = character.dungeonAccess.find(x => x == request.dungeonId);
-  // if (!access) throw { code: 400, error: "Character has no access to this dungeon" }
+  const access = character.dungeonAccess.find(x => x == request.dungeonId);
+  if (!access) throw { code: 400, error: "Character has no access to this dungeon" }
 
   // check if enemy belongs to the correct dungeon
   const enemy = dungeon.enemies.find(x => x._id == request.enemyId);
