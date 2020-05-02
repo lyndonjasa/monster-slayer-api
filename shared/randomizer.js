@@ -32,6 +32,8 @@ const randomizeEncounter = (encounter) => {
  * @param {Array<KeyValuePair>} drops 
  */
 const randomizeDrop = (drops) => {
+  if (drops.length == 0) return "none";
+
   const noDropRate = 100 - (drops.map(x => x.value).reduce((a,b) => a + b));
 
   // if there's a possibility of no drop chance

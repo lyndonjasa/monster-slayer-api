@@ -96,6 +96,7 @@ const enterDungeon = async(request) => {
  * @param {BattleRequest} request 
  */
 const battleOutcome = async(request) => {
+  debugger
   const character = await Character.findById(request.characterId).populate("skills", "");
   const dungeon = await Dungeon.findById(request.dungeonId)
                       .populate({ 
