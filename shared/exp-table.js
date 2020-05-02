@@ -1,5 +1,9 @@
 const expTable = [
   {
+    "lvl": 1,
+    "exp": 0
+  },
+  {
     "lvl": 2,
     "exp": 20
   },

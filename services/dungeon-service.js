@@ -96,7 +96,6 @@ const enterDungeon = async(request) => {
  * @param {BattleRequest} request 
  */
 const battleOutcome = async(request) => {
-  debugger
   const character = await Character.findById(request.characterId).populate("skills", "");
   const dungeon = await Dungeon.findById(request.dungeonId)
                       .populate({ 
@@ -134,11 +133,16 @@ const battleOutcome = async(request) => {
   const session = await Character.startSession();
   session.startTransaction();
   try {
-    debugger
     // add enemy exp to current
     const totalExp = character.totalExp + enemy.exp;
     // get new level and next level exp req
-    const { newLvl, nxtLvlExp } = lvlFinder(totalExp);
+    let { newLvl, nxtLvlExp } = lvlFinder(totalExp);
+
+    // if char is already at max
+    if (character.level == 50) {
+      newLvl = 50;
+      nextLevelExp = 0;
+    }
 
     // get skills learned
     const currentSkills = await Skill.find({ classId: character.classType, lvlReq: { $lte: character.level } });
