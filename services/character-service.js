@@ -131,6 +131,24 @@ const getDungeonAccess = async(characterId) => {
   return dungeons;
 }
 
+/**
+ * 
+ * @param {String} characterId 
+ * @param {String} inventoryId 
+ */
+const removeItem = async(characterId, inventoryId) => {
+  const item = await Inventory.findById(inventoryId);
+  // if no inventory record is found
+  if (!item) throw { code: "400", error: "No item found associated with the character" }
+
+  // if record is found but character id doesn't match
+  if (item.characterId.toString() != characterId) {
+    throw { code: "400", error: "No item found associated with the character" }
+  }
+
+  await Inventory.findByIdAndDelete(inventoryId);
+}
+
 module.exports = { 
   getAccountCharacter,
   getCharacter,
@@ -138,5 +156,6 @@ module.exports = {
   updateEquipment,
   getCharacterSkills,
   updateSkills,
-  getDungeonAccess
+  getDungeonAccess,
+  removeItem
 };

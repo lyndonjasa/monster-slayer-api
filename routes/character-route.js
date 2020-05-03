@@ -26,6 +26,24 @@ router.get("/character/:id/inventory", async(req, res) => {
   }
 });
 
+router.delete("/character/:id/inventory/:inventoryId", async(req, res) => {
+  try {
+    const characterId = req.params.id;
+    const inventoryId = req.params.inventoryId;
+
+    await CharacterService.removeItem(characterId, inventoryId);
+
+    res.send();
+  } catch (error) {
+    const { code } = error;
+    if (code) {
+      res.status(code).send(error.error);
+    } else {
+      res.status(500).send(error);
+    }
+  }
+});
+
 router.put("/character/:id/equipment", async(req, res) => {
   try {
     const request = new EquipmentRequest(req.body);
