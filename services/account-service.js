@@ -39,12 +39,12 @@ const createAccount = async(request) => {
 
     // get character base equipment
     // map _id only
-    const weapon = await Item.findOne({ classId: request.getClassType, type: "WPN" });
-    const armor = await Item.findOne({ classId: request.getClassType, type: "AMR" });
+    const weapon = await Item.find({ classId: request.getClassType, type: "WPN" }).sort({ _id: 1 }).limit(1);
+    const armor = await Item.find({ classId: request.getClassType, type: "AMR" }).sort({ _id: 1 }).limit(1);
 
     character.equipment = {
-      weapon: weapon._id,
-      armor: armor._id
+      weapon: weapon[0]._id,
+      armor: armor[0]._id
     };
 
     const firstDungeon = await Dungeon.findOne({ name: "Grass Lands" });
@@ -55,11 +55,11 @@ const createAccount = async(request) => {
     const inventory = [
       {
         characterId: charModel._id,
-        item: weapon._id
+        item: weapon[0]._id
       },
       {
         characterId: charModel._id,
-        item: armor._id
+        item: armor[0]._id
       }
     ];
 
