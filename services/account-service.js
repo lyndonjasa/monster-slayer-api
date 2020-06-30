@@ -30,7 +30,7 @@ const createAccount = async(request) => {
     };
 
     // get character base stats
-    character.stats = baseStats.find(x => x.classId === request.getClassType);
+    character.stats = baseStats.find(x => x.classId == request.getClassType);
 
     // get character base skillset
     // map _id only
