@@ -4,6 +4,16 @@ const router = express.Router();
 const { CharacterService } = require("../services");
 const { EquipmentRequest } = require("../requests");
 
+router.get("/character", async(req, res) => {
+  try {
+    const characters = await CharacterService.getCharacters();
+
+    res.send(characters);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.get("/character/:id", async(req, res) => {
   try {
     const id = req.params.id;

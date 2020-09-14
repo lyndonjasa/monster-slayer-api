@@ -36,6 +36,19 @@ const getCharacter = async(characterId) => {
   }
 }
 
+const getCharacters = async() => {
+  try {
+    const characters = await Character.find({})
+      .select("name classType level stats accountId equipment")
+      .populate("equipment.weapon", "name bonus -_id")
+      .populate("equipment.armor", "name bonus -_id");
+
+    return characters;
+  } catch (error) {
+    throw error;
+  }
+}
+
 /**
  * 
  * @param {String} characterId 
@@ -152,6 +165,7 @@ const removeItem = async(characterId, inventoryId) => {
 module.exports = { 
   getAccountCharacter,
   getCharacter,
+  getCharacters,
   getInventory, 
   updateEquipment,
   getCharacterSkills,
