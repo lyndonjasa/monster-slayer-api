@@ -14,6 +14,11 @@ const createAccount = async(request) => {
     password: request.getPassword
   });
 
+  const existingAccount = await Account.findOne({ username: request.getUsername });
+  if (existingAccount) {
+    throw { code: 400, error: "Username already exists" }
+  }
+
   const session = await Account.startSession();
   session.startTransaction();
 
